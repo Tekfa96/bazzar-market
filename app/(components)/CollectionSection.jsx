@@ -9,7 +9,7 @@ import { CartContext } from "../(context)/CartContext";
 const CollectionSection = ({ store }) => {
   const [collectionItemList, setcollectionItemList] = useState([]);
   const { updateCart, setUpdateCart } = useContext(CartContext);
-  const { user } = useUser();
+  const { isSignedIn, user } = useUser();
   const [quantities, setQuantities] = useState(0);
 
   const filterCollection = (category) => {
@@ -21,12 +21,20 @@ const CollectionSection = ({ store }) => {
   };
 
   const addToCartHandler = (item) => {
+    if (!isSignedIn) {
+      // Si l'utilisateur n'est pas connecté, affiche un message de toast
+      toast("Please login to add items to your cart.");
+      return; // Sort de la fonction sans ajouter au panier
+    }
+
+    // Si l'utilisateur est connecté, continue l'ajout au panier
     setQuantities((prevQuantities) => {
       const newQuantities = { ...prevQuantities };
       newQuantities[item.id] = (newQuantities[item.id] || 0) + 1; // Incrémente la quantité de l'article
       return newQuantities;
     });
     toast("Adding to Cart");
+
     const data = {
       email: user?.primaryEmailAddress.emailAddress,
       name: item?.name,
@@ -48,9 +56,13 @@ const CollectionSection = ({ store }) => {
     );
     //console.log(data);
   };
+
   useEffect(() => {
-    store?.collection && filterCollection(store?.collection[0]?.category);
-  }, [store]);
+    if (store?.collection?.length > 0) {
+      // Filtrer directement en fonction de la première catégorie de la collection
+      filterCollection(store.collection[0].category);
+    }
+  }, [store]); // Ajoute store comme dépendance
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-4">
