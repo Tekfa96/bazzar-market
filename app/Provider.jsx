@@ -1,6 +1,6 @@
 "use client";
 import React, { Suspense } from "react";
-import Header from "./components/header";
+import Header from "./Components/Header";
 import { useState } from "react";
 import { Toaster } from "sonner";
 import { CartContext } from "./(context)/CartContext";

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import { MapPin, Star, ArrowLeft } from "lucide-react";
-import StoreTabs from "@/app/components/StoreTabs";
+import StoreTabs from "@/app/Components/StoreTabs";
 import { getStoresDetails } from "@/app/(utils)/GlobalApi";
 
 const StoreDetails = () => {

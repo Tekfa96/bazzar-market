@@ -2,7 +2,7 @@
 import { Textarea } from "@/components/UI/textarea";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useContext, useState } from "react";
-import Title from "@/app/components/Title";
+import Title from "@/app/Components/Title";
 import { Input } from "@/components/UI/input";
 import { CartContext } from "@/app/(context)/CartContext";
 import {
