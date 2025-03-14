@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Rating as ReactRating } from "@smastrom/react-rating";
 import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/components/UI/textarea";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/button";
 import ReviewList from "./ReviewList";
 import { addNewReview, getStoreReviews } from "../(utils)/GlobalApi";
 import { toast } from "sonner";

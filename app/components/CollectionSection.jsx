@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/button";
 import { LucideShoppingBasket, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";

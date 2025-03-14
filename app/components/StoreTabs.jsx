@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/UI/tabs";
 import AboutSection from "./AboutSection";
 import CollectionSection from "./CollectionSection";
 import ReviewSection from "./ReviewSection";

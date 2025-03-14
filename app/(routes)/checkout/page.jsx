@@ -1,9 +1,9 @@
 "use client";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/components/UI/textarea";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useContext, useState } from "react";
 import Title from "@/app/components/Title";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/UI/input";
 import { CartContext } from "@/app/(context)/CartContext";
 import {
   getUserCart,

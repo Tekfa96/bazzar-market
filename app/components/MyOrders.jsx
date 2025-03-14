@@ -7,7 +7,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/UI/accordion";
 
 const MyOrders = () => {
   const { user } = useUser();

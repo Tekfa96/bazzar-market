@@ -1,7 +1,7 @@
 import { Search, ShoppingBasket } from "lucide-react";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/button";
 import {
   SignInButton,
   SignOutButton,
@@ -17,12 +17,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/UI/dropdown-menu";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/UI/popover";
 
 import { CartContext } from "../(context)/CartContext";
 import { getUserCart } from "../(utils)/GlobalApi";
