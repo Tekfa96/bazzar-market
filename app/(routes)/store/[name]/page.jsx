@@ -75,7 +75,7 @@ const StoreDetails = () => {
         </p>
 
         {/* STORE DATA */}
-        <div className="my-3">
+        <div className="my-4">
           <StoreTabs store={store} />
         </div>
       </section>
