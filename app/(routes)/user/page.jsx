@@ -3,7 +3,7 @@ import { UserProfile } from "@clerk/nextjs";
 import { ShoppingBasket } from "lucide-react";
 import React from "react";
 import { UserButton } from "@clerk/nextjs";
-import MyOrders from "@/app/(components)/MyOrders";
+import MyOrders from "@/app/components/MyOrders";
 const User = () => {
   return (
     <div className="flexCenter">

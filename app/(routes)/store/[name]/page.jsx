@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import { MapPin, Star, ArrowLeft } from "lucide-react";
-import StoreTabs from "@/app/(components)/StoreTabs";
+import StoreTabs from "@components/StoreTabs";
 import { getStoresDetails } from "@/app/(utils)/GlobalApi";
 
 const StoreDetails = () => {
@@ -75,7 +75,7 @@ const StoreDetails = () => {
         </p>
 
         {/* STORE DATA */}
-        <div className="my-4">
+        <div className="my-3">
           <StoreTabs store={store} />
         </div>
       </section>

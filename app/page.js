@@ -1,8 +1,8 @@
 import React from "react";
-import Hero from "./(components)/Hero";
-import CategoryList from "./(components)/CategoryList";
-import StoreList from "./(components)/StoreList";
-import Footer from "./(components)/Footer";
+import Hero from "./components/Hero";
+import CategoryList from "./components/CategoryList";
+import StoreList from "./components/StoreList";
+import Footer from "./components/Footer";
 const page = () => {
   return (
     <div>

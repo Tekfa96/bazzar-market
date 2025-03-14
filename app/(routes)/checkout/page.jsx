@@ -2,12 +2,16 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useContext, useState } from "react";
-import Title from "@/app/(components)/Title";
+import Title from "@/app/components/Title";
 import { Input } from "@/components/ui/input";
 import { CartContext } from "@/app/(context)/CartContext";
-import { getUserCart, updateOrderDetails } from "@/app/(utils)/GlobalApi";
+import {
+  getUserCart,
+  updateOrderDetails,
+  placeOrder,
+} from "@/app/(utils)/GlobalApi";
 import { useUser } from "@clerk/nextjs";
-import { placeOrder } from "@/app/(utils)/GlobalApi";
+
 import { toast } from "sonner";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { ArrowLeft } from "lucide-react";
