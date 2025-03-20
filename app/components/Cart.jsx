@@ -188,7 +188,7 @@ const Cart = ({ cart }) => {
               className="rounded-md w-full bg-red-500 hover:bg-red-600"
               onClick={clearCart}
             >
-              Annuler toutes les commandes
+              Cancel All
             </Button>
           </>
         )}

@@ -174,53 +174,51 @@ const CollectionSection = ({ store }) => {
                   </h5>
                 </div>
 
-                {store.storeType?.[0] === "clothing" &&
-                  (store.categoryies?.[0]?.name === "Men" ||
-                    store.categoryies?.[0]?.name === "Women") && (
-                    <>
-                      <div className="m-2">
-                        <h5 className="text-sm font-medium mb-2">Color</h5>
-                        <div className="flex flex-wrap gap-x-3 gap-y-2">
-                          {item.productColor?.map((color) => (
-                            <button
-                              key={color}
-                              onClick={() =>
-                                updateSelection(item.id, "color", color)
-                              }
-                              className={cn(
-                                "w-8 h-8 rounded-full border-2 transition-all",
-                                selectedOptions[item.id]?.color === color
-                                  ? "border-black ring-2 ring-offset-1 scale-110"
-                                  : "border-gray-300 hover:scale-105"
-                              )}
-                              style={{ backgroundColor: color }}
-                            />
-                          ))}
-                        </div>
+                {store.storeType?.[0] === "clothing" && (
+                  <>
+                    <div className="m-2">
+                      <h5 className="text-sm font-medium mb-2">Color</h5>
+                      <div className="flex flex-wrap gap-x-3 gap-y-2">
+                        {item.productColor?.map((color) => (
+                          <button
+                            key={color}
+                            onClick={() =>
+                              updateSelection(item.id, "color", color)
+                            }
+                            className={cn(
+                              "w-8 h-8 rounded-full border-2 transition-all",
+                              selectedOptions[item.id]?.color === color
+                                ? "border-black ring-2 ring-offset-1 scale-110"
+                                : "border-gray-300 hover:scale-105"
+                            )}
+                            style={{ backgroundColor: color }}
+                          />
+                        ))}
                       </div>
-                      <div className="m-2">
-                        <h5 className="text-sm font-medium mb-2">Size</h5>
-                        <div className="flex flex-wrap gap-x-3 gap-y-2">
-                          {item.productSize?.map((size) => (
-                            <Button
-                              key={size}
-                              variant={
-                                selectedOptions[item.id]?.size === size
-                                  ? "default"
-                                  : "outline"
-                              }
-                              onClick={() =>
-                                updateSelection(item.id, "size", size)
-                              }
-                              className="px-4 py-2 text-xs font-semibold rounded-md hover:scale-105"
-                            >
-                              {size}
-                            </Button>
-                          ))}
-                        </div>
+                    </div>
+                    <div className="m-2">
+                      <h5 className="text-sm font-medium mb-2">Size</h5>
+                      <div className="flex flex-wrap gap-x-3 gap-y-2">
+                        {item.productSize?.map((size) => (
+                          <Button
+                            key={size}
+                            variant={
+                              selectedOptions[item.id]?.size === size
+                                ? "default"
+                                : "outline"
+                            }
+                            onClick={() =>
+                              updateSelection(item.id, "size", size)
+                            }
+                            className="px-4 py-2 text-xs font-semibold rounded-md hover:scale-105"
+                          >
+                            {size}
+                          </Button>
+                        ))}
                       </div>
-                    </>
-                  )}
+                    </div>
+                  </>
+                )}
 
                 <h5 className="h5 m-2">Description:</h5>
                 <p className="p m-2">{item.description}</p>
