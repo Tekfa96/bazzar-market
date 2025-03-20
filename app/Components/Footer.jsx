@@ -78,7 +78,7 @@ const Footer = () => {
             <p>
               Email:{" "}
               <a
-                href="mailto:support@glamstore.com"
+                href="mailto:support@bazarstore.com"
                 className="hover:text-secondary"
               >
                 support@bazzar.com
@@ -90,7 +90,7 @@ const Footer = () => {
                 +1234567890
               </a>
             </p>
-            <p>Address: 123 Glam Street, City, Country</p>
+            <p>Address: 123 Test Street, City, Country</p>
           </div>
         </div>
         <div className="flex flex-col items-center mt-8">
