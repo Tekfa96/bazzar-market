@@ -50,67 +50,79 @@ const getStores = async (_category) => {
 const getStoresDetails = async (storeSlug) => {
   const query = gql`
     query GetStoreDetails {
-      store(where: { slug: "${storeSlug}" }) {
-        aboutUs
-        address
-        banner {
-          url
-        }
-        categoryies {
-          name
-        }
+  store(where: {slug: "${storeSlug}"}) {
+    aboutUs
+    address
+    banner {
+      url
+    }
+    categoryies {
+      name
+    }
+    id
+    name
+    slug
+    workingHours
+    storeType
+    collection {
+      ... on Collectione {
         id
-        name
-        slug
-        workingHours
-        storeType
-        collection {
-          ... on Collectione {
+        category
+        collectionItem {
+          ... on CollectionItem {
             id
-            category
-            collectionItem {
-              ... on CollectionItem {
-                id
-                name
-                description
-                price
-                productImage {
-                  url
-                }
-              }
+            name
+            description
+            price
+            productImage {
+              url
             }
+            productColor
+            productSize
           }
-        }
-        review {
-          star
         }
       }
     }
+    review {
+      star
+    }
+  }
+}
   `;
   const result = await request(MASTER_URL, query);
   return result;
 };
 
 // GET ADD TO CART API REQUEST
-const addToCart = async (data) => {
+const addToCartClothes = async (data) => {
   const query = gql`
     mutation AddToCart {
-      createUserCart(
-        data: {
-          email: "${data?.email}"
-          price: ${data.price}
-          productDescription: "${data.description}"
-          productImage: "${data.productImage}"
-          productName: "${data.name}"
-          store: { connect: { slug: "${data.storeSlug}" } }
-        }
-      ) {
-        id
-      }
-      publishManyUserCarts(to: PUBLISHED) {
-        count
-      }
-    }
+  createUserCart(
+    data: {email: "${data?.email}", price: ${data.price}, productDescription: "${data.description}", productImage: "${data.productImage}", productName: "${data.name}", store: {connect: {slug: "${data.storeSlug}"}}, productSize: ${data.size}, productColor: ${data.color}}
+  ) {
+    id
+  }
+  publishManyUserCarts {
+    count
+  }
+}
+  `;
+  const result = await request(MASTER_URL, query);
+  return result;
+};
+// GET ADD TO CART API REQUEST
+const addToCartOtherProducts = async (data) => {
+  const query = gql`
+    mutation AddToCart {
+  createUserCart(
+    data: {email: "${data?.email}", price: ${data.price}, productDescription: "${data.description}", productImage: "${data.productImage}", productName: "${data.name}", store: {connect: {slug: "${data.storeSlug}"}}}
+  ) {
+    id
+  }
+  publishManyUserCarts {
+    count
+  }
+}
   `;
   const result = await request(MASTER_URL, query);
   return result;
@@ -119,25 +131,45 @@ const addToCart = async (data) => {
 // GET USER CART API REQUEST
 const getUserCart = async (userEmail) => {
   const query = gql`
-    query GetUserCart {
-      userCarts(where: { email: "${userEmail}" }) {
-        id
-        price
-        productDescription
-        productImage
-        productName
-        store {
-          name
-          banner {
-            url
-          }
-          slug
-        }
+query GetUserCart {
+  userCarts(where: {email: "${userEmail}"}) {
+    id
+    price
+    productDescription
+    productImage
+    productName
+    store {
+      name
+      banner {
+        url
       }
+      slug
     }
+    productSize
+    productColor
+  }
+}
   `;
   const result = await request(MASTER_URL, query);
   return result;
+};
+
+// CONNECT STORE TO CART ITEM API
+const connectStoreToCartItem = async () => {
+  const query = gql`
+    mutation ConnectStoreToCartItem {
+      publishManyUserCarts(to: PUBLISHED) {
+        count
+      }
+    }
+  `;
+
+  try {
+    const result = await request(MASTER_URL, query);
+    return result;
+  } catch (error) {
+    console.error("GraphQL Error:", error.response || error.message);
+  }
 };
 // DISCONNECT STORE FROM CARTITEM API REQUEST
 const disconnectStoreFromCartItem = async (id) => {
@@ -169,6 +201,26 @@ const deleteCartItem = async (id) => {
     headers;
   } catch (error) {
     console.error("Error deleting Cart Item", error);
+    throw error;
+  }
+  const result = await request(MASTER_URL, query, {}, headers);
+  return result;
+};
+
+// DELETE MANY CARTIEMS
+const deleteManyCartItems = async () => {
+  const query = gql`
+    mutation DeleteManyCartItems {
+      deleteManyUserCarts {
+        count
+      }
+    }
+  `;
+  const headers = { Authorization: `Bearer ${AUTH_TOKEN}` };
+  try {
+    headers;
+  } catch (error) {
+    console.error("Error deleting Cart Items", error);
     throw error;
   }
   const result = await request(MASTER_URL, query, {}, headers);
@@ -309,10 +361,13 @@ export {
   getCategories,
   getStores,
   getStoresDetails,
-  addToCart,
+  addToCartClothes,
+  addToCartOtherProducts,
   getUserCart,
+  connectStoreToCartItem,
   disconnectStoreFromCartItem,
   deleteCartItem,
+  deleteManyCartItems,
   addNewReview,
   getStoreReviews,
   placeOrder,

@@ -3,8 +3,9 @@ import React, { useEffect, useState, useRef } from "react";
 import StoreItem from "./StoreItem";
 import { getStores } from "../(utils)/GlobalApi";
 import { useSearchParams } from "next/navigation";
+import { CartContext } from "../(context)/CartContext";
 
-const StoreList = () => {
+const StoreList = ({ cart }) => {
   const params = useSearchParams();
   const [category, setCategory] = useState("all");
   const [loading, setLoading] = useState(false);
@@ -45,10 +46,9 @@ const StoreList = () => {
       return;
     }
 
-    // Scroller uniquement si la catégorie est différente de "all"
-    if (category !== "all") {
-      scrollToStoreList();
-    }
+    // scroller
+
+    scrollToStoreList();
   }, [category]);
 
   return (

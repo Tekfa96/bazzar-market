@@ -25,7 +25,7 @@ const ReviewSection = ({ store }) => {
     //console.log(data);
     addNewReview(data).then((res) => {
       //console.log(res);
-      toast("Review Added !");
+      toast.success("Review Added !");
     });
   };
 

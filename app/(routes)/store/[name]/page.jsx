@@ -13,7 +13,7 @@ const StoreDetails = () => {
 
   const GetStoreDetails = (restaurantSlug) => {
     getStoresDetails(restaurantSlug).then((res) => {
-      console.log(res);
+      console.log(res.store);
       setStore(res?.store);
     });
   };

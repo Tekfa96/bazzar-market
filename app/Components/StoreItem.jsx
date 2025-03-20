@@ -4,6 +4,8 @@ import Link from "next/link";
 import React from "react";
 
 const StoreItem = ({ store }) => {
+  console.log({ store });
+
   const calculateRating = () => {
     let total = 0;
     let count = 0;

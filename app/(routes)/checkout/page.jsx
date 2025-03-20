@@ -46,43 +46,46 @@ const Checkout = () => {
     setTaxAmount(total * 0.05);
     setTotalAmount(total + total * 0.05 + deliveryCharges);
   };
+  const placeOrders = async () => {
+    try {
+      setLoading(true);
 
-  const placeOrders = () => {
-    setLoading(true);
-    const data = {
-      email: user?.primaryEmailAddress.emailAddress,
-      orderAmount: totalAmount,
-      storeName: params.get("store"),
-      userName: user.fullName,
-      phone: phone,
-      address: address,
-      zipCode: zipCode,
-    };
-    placeOrder(data).then(
-      (res) => {
-        const resId = res?.createOrder?.id;
-        if (resId) {
-          cart.forEach((item) => {
-            updateOrderDetails(
-              item.productName,
-              item.price,
-              resId,
-              user?.primaryEmailAddress.emailAddress
-            ).then(
-              () => {
-                setLoading(false);
-                toast("Order Placed Successfully");
-                setUpdateCart((prev) => !prev);
-                sendEmail();
-                router.replace("/");
-              },
-              () => setLoading(false)
-            );
-          });
-        }
-      },
-      () => setLoading(false)
-    );
+      const data = {
+        email: user?.primaryEmailAddress.emailAddress,
+        orderAmount: totalAmount,
+        storeName: params.get("store"),
+        userName: user.fullName,
+        phone,
+        address,
+        zipCode,
+      };
+
+      const res = await placeOrder(data);
+      const resId = res?.createOrder?.id;
+
+      if (!resId) throw new Error("Order ID not received");
+
+      await Promise.all(
+        cart.map((item) =>
+          updateOrderDetails(
+            item.productName,
+            item.price,
+            resId,
+            user?.primaryEmailAddress.emailAddress
+          )
+        )
+      );
+
+      await sendEmail();
+
+      toast.success("Order placed successfully and confirmation email sent");
+      setUpdateCart((prev) => !prev);
+      router.replace("/");
+    } catch (error) {
+      toast("Error processing order");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const sendEmail = async () => {
@@ -92,16 +95,15 @@ const Checkout = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: user?.primaryEmailAddress.emailAddress }),
       });
-      response.ok
-        ? toast("Confirmation email sent")
-        : toast("Error while sending email");
+
+      if (!response.ok) throw new Error("Failed to send email");
     } catch {
-      toast("Error while sending email");
+      throw new Error("Error while sending email");
     }
   };
 
   useEffect(() => {
-    user && getUserCarts();
+    if (user) getUserCarts();
   }, [user, updateCart]);
 
   return (

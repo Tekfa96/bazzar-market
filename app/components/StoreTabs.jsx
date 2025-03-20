@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/UI/tabs";
 import AboutSection from "./AboutSection";
 import CollectionSection from "./CollectionSection";
 import ReviewSection from "./ReviewSection";
-const StoreTabs = ({ store }) => {
+const StoreTabs = ({ store, cart }) => {
   return (
     <Tabs defaultValue="collection" className="w-full">
       <TabsList className="bg-white">
@@ -13,16 +13,16 @@ const StoreTabs = ({ store }) => {
       </TabsList>
       {/* COLLECTION TAB */}
       <TabsContent value="collection">
-        <CollectionSection store={store} />
+        <CollectionSection store={store} cart={cart} />
       </TabsContent>
       {/* ABOUT TAB */}
       <TabsContent value="about">
-        <AboutSection store={store} />
+        <AboutSection store={store} cart={cart} />
       </TabsContent>
 
       {/* REVIEW TAB */}
       <TabsContent value="review">
-        <ReviewSection store={store} />
+        <ReviewSection store={store} cart={cart} />
       </TabsContent>
     </Tabs>
   );
